@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="announcement_cell" rowHeight="40" id="KGk-i7-Jjw" customClass="AnnouncementTableCell" customModule="OnenexCodeTest" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="58"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="58"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Am3-1Q-21e">
+                        <rect key="frame" x="8" y="8" width="304" height="42"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="R2m-UO-Lsf">
+                                <rect key="frame" x="10" y="0.0" width="284" height="42"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="316-ho-bcv">
+                                        <rect key="frame" x="0.0" y="0.0" width="284" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tfl-3E-Fmn">
+                                        <rect key="frame" x="0.0" y="25" width="284" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="R2m-UO-Lsf" secondAttribute="bottom" id="HEF-5M-AFa"/>
+                            <constraint firstItem="R2m-UO-Lsf" firstAttribute="top" secondItem="Am3-1Q-21e" secondAttribute="top" id="iJI-aT-5tH"/>
+                            <constraint firstItem="R2m-UO-Lsf" firstAttribute="leading" secondItem="Am3-1Q-21e" secondAttribute="leading" constant="10" id="x2r-jM-67y"/>
+                            <constraint firstAttribute="trailing" secondItem="R2m-UO-Lsf" secondAttribute="trailing" constant="10" id="zK5-V6-fug"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Am3-1Q-21e" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="A3u-Ka-2gr"/>
+                    <constraint firstAttribute="bottom" secondItem="Am3-1Q-21e" secondAttribute="bottom" constant="8" id="CVf-or-G5Z"/>
+                    <constraint firstAttribute="trailing" secondItem="Am3-1Q-21e" secondAttribute="trailing" constant="8" id="TAK-XL-rmA"/>
+                    <constraint firstItem="Am3-1Q-21e" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="qtQ-I2-s13"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="announceDateLbl" destination="316-ho-bcv" id="oNB-cm-bfp"/>
+                <outlet property="announceDayLbl" destination="Tfl-3E-Fmn" id="zKh-Lv-aSp"/>
+            </connections>
+            <point key="canvasLocation" x="-32.061068702290072" y="-14.788732394366198"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
