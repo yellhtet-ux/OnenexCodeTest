@@ -11,5 +11,7 @@ class DashboardVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("Initial Commits")
     }
 }
