@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DashboardVC: UIViewController {
+class DashboardVC: BaseVC {
     
     @IBOutlet var featureBtnsContainerView: NSLayoutConstraint!
     @IBOutlet var lowerFeatureBtnContainerView: UIView!
@@ -23,14 +23,25 @@ class DashboardVC: UIViewController {
     @IBOutlet var searchContainerView: UIView!
     
     private let sliderProductsImages : [String] = ["home_slide_img","home_slide_img","home_slide_img"]
+    private let presenter = DashboardPresenter(apiManager: APIManager())
     
     var timer : Timer?
     var currentIndex : Int = 0
     let tableCellRowHeight : CGFloat = 50
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.attachView(view: self)
+        fetchData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         UISetUp()
+    }
+    
+    private func fetchData () {
+        presenter.getPromotionsData()
     }
     
     private func UISetUp () {
@@ -203,4 +214,14 @@ extension DashboardVC : UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+}
+
+extension DashboardVC : DashboardView {
+    func startLoading() {
+        self.showProgressDialog()
+    }
+    
+    func finishLoading() {
+        self.hideProgressDialog()
+    }
 }
