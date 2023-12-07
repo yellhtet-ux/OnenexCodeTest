@@ -9,20 +9,20 @@ import UIKit
 
 class DashboardVC: UIViewController {
     
-    
+    @IBOutlet var featureBtnsContainerView: NSLayoutConstraint!
+    @IBOutlet var lowerFeatureBtnContainerView: UIView!
     @IBOutlet var announceTableViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet var newsLetterCollectionView: UICollectionView!
     @IBOutlet var announcementTableView: UITableView!
     @IBOutlet var promotionCollectionView: UICollectionView!
-    @IBOutlet var sliderPageControl: UIPageControl!
+    @IBOutlet var slidePageControl : UIPageControl!
     @IBOutlet var pagingSliderCollectionView: UICollectionView!
-    @IBOutlet var featureBtnContainerView: UIView!
     @IBOutlet var foldInBtn: UIButton!
     @IBOutlet var foldOutBtn: UIButton!
     @IBOutlet var cardView: CardView!
     @IBOutlet var searchContainerView: UIView!
     
-    private let sliderProductsImages : [UIImage] = [UIImage(named: "home_slide_img")!,UIImage(named: "home_slide_img")!,UIImage(named: "home_slide_img")!]
+    private let sliderProductsImages : [String] = ["home_slide_img","home_slide_img","home_slide_img"]
     
     var timer : Timer?
     var currentIndex : Int = 0
@@ -34,20 +34,21 @@ class DashboardVC: UIViewController {
     }
     
     private func UISetUp () {
+        foldInBtn.isHidden = true
+        foldOutBtn.isHidden = false
+        lowerFeatureBtnContainerView.isHidden = true
+        featureBtnsContainerView.constant = featureBtnsContainerView.constant - 95
         containerViewInitialSetUp ()
         buttonActionSetUp ()
         collectionViewInitialSetUp()
         tableViewInitialSetUp()
         setTimer()
-        sliderPageControl.currentPage = 0
-        sliderPageControl.numberOfPages = sliderProductsImages.count
+        slidePageControl.currentPage = 0
+        slidePageControl.numberOfPages = sliderProductsImages.count
     }
     
     private func containerViewInitialSetUp () {
         searchContainerView.layer.cornerRadius = 20
-        foldInBtn.layer.cornerRadius = 8
-        foldOutBtn.layer.cornerRadius = 8
-        foldOutBtn.isHidden = true
     }
     
     // MARK: - Table View Registration and Initial Set Up
@@ -63,10 +64,9 @@ class DashboardVC: UIViewController {
     
     // MARK: - CollectionView Registration and Initial Set Up
     private func collectionViewInitialSetUp () {
-        pagingSliderCollectionView.register(UINib(nibName: "ImageSliderCollectionCell", bundle: nil), forCellWithReuseIdentifier: "imageSlider_Cell")
-        promotionCollectionView.register(UINib(nibName: "PromotionCollectionCell", bundle: nil), forCellWithReuseIdentifier: "promotion_cell")
+        pagingSliderCollectionView.register(UINib(nibName: "ImageSliderCollectionCell", bundle: nil), forCellWithReuseIdentifier: "imageslider_cell")
         newsLetterCollectionView.register(UINib(nibName: "NewsLetterCollectionCell", bundle: nil), forCellWithReuseIdentifier: "newsletter_cell")
-        
+        promotionCollectionView.register(UINib(nibName: "PromotionCollectionCell", bundle: nil), forCellWithReuseIdentifier: "promotion_cell")
         pagingSliderCollectionView.dataSource = self
         pagingSliderCollectionView.delegate = self
         promotionCollectionView.delegate = self
@@ -81,16 +81,37 @@ class DashboardVC: UIViewController {
     }
     
     @objc func moveToNextSlide () {
-        if currentIndex < sliderProductsImages.count - 1{
-            let index = IndexPath(item: currentIndex, section: 0)
-            pagingSliderCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
-            currentIndex += 1
-        }else {
-            currentIndex = 0
+        DispatchQueue.main.async {
+            if self.currentIndex < self.sliderProductsImages.count - 1 {
+                self.currentIndex += 1
+            }else {
+                self.currentIndex = 0
+            }
+            self.pagingSliderCollectionView.layoutIfNeeded()
+            if let layout = self.pagingSliderCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+                let contentOffset = layout.collectionViewContentSize.width / CGFloat(self.sliderProductsImages.count) * CGFloat(self.currentIndex)
+                        self.pagingSliderCollectionView.setContentOffset(CGPoint(x: contentOffset, y: 0), animated: true)
+                    }
+//            self.pagingSliderCollectionView.scrollToItem(at: IndexPath(item: self.currentIndex, section: 0), at: .centeredHorizontally, animated: true)
+            
         }
-        
-        sliderPageControl.currentPage = currentIndex
     }
+    
+/*
+ if let layout = self.pagingSliderCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+     let contentOffset = layout.collectionViewContentSize.width / CGFloat(self.sliderProductsImages.count) * CGFloat(self.currentIndex)
+             self.pagingSliderCollectionView.setContentOffset(CGPoint(x: contentOffset, y: 0), animated: true)
+         }
+ 
+ 
+ guard let currentIndexPath = self.pagingSliderCollectionView.indexPathsForVisibleItems.first else {
+           return
+       }
+       var nextItem = (currentIndexPath.item + 1) % self.sliderProductsImages.count
+       let nextIndexPath = IndexPath(item: nextItem, section: 0)
+
+ */
+
     
     private func buttonActionSetUp () {
         foldInBtn.addTarget(self, action: #selector(foldInButtonGotPressed), for: .touchUpInside)
@@ -98,13 +119,21 @@ class DashboardVC: UIViewController {
     }
     
     @objc func foldInButtonGotPressed () {
-        featureBtnContainerView.isHidden = true
-        foldOutBtn.isHidden = false
+        UIView.animate(withDuration: 0.5) {
+            self.lowerFeatureBtnContainerView.isHidden = true
+            self.foldInBtn.isHidden = true
+            self.foldOutBtn.isHidden = false
+            self.featureBtnsContainerView.constant = self.featureBtnsContainerView.constant - 95
+        }
     }
     
     @objc func foldOutButtonGotPressed () {
-        featureBtnContainerView.isHidden = false
-        foldOutBtn.isHidden = true
+        UIView.animate(withDuration: 0.5) {
+            self.lowerFeatureBtnContainerView.isHidden = false
+            self.foldOutBtn.isHidden = true
+            self.foldInBtn.isHidden = false
+            self.featureBtnsContainerView.constant = 220.0
+        }
     }
 }
 
@@ -122,11 +151,11 @@ extension DashboardVC : UICollectionViewDelegate,UICollectionViewDataSource,UICo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == pagingSliderCollectionView {
-            let cell = pagingSliderCollectionView.dequeueReusableCell(withReuseIdentifier: "imageSlider_Cell", for: indexPath) as! ImageSliderCollectionCell
-            cell.slideImg.image = sliderProductsImages[indexPath.row]
+            let cell = pagingSliderCollectionView.dequeueReusableCell(withReuseIdentifier: "imageslider_cell", for: indexPath) as! ImageSliderCollectionCell
+            cell.images = UIImage(named: sliderProductsImages[indexPath.item])
             return cell
         }else if collectionView == promotionCollectionView {
-            let cell = pagingSliderCollectionView.dequeueReusableCell(withReuseIdentifier: "promotion_cell", for: indexPath) as! PromotionCollectionCell
+            let cell = promotionCollectionView.dequeueReusableCell(withReuseIdentifier: "promotion_cell", for: indexPath) as! PromotionCollectionCell
             return cell
         }else {
             let cell = newsLetterCollectionView.dequeueReusableCell(withReuseIdentifier: "newsletter_cell", for: indexPath) as! NewsLetterCollectionCell
@@ -136,8 +165,7 @@ extension DashboardVC : UICollectionViewDelegate,UICollectionViewDataSource,UICo
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == pagingSliderCollectionView {
-//            return CGSize(width: pagingSliderCollectionView.frame.width, height: pagingSliderCollectionView.frame.height)
-            return CGSize(width: 100, height: 100)
+            return CGSize(width: pagingSliderCollectionView.frame.width, height: pagingSliderCollectionView.frame.height)
         }else if collectionView == promotionCollectionView{
             return CGSize(width: 200, height: 190)
         }else {
@@ -145,8 +173,22 @@ extension DashboardVC : UICollectionViewDelegate,UICollectionViewDataSource,UICo
         }
     }
     
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let currentPage = round( scrollView.contentOffset.x / scrollView.frame.size.width)
+        slidePageControl.currentPage = Int(currentPage)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.x == scrollView.contentSize.width - scrollView.frame.size.width {
+            // User scrolled to the last page, reset to the first page
+            scrollView.contentOffset.x = 0
+            slidePageControl.currentPage = 0
+        }
     }
 }
 
@@ -160,6 +202,5 @@ extension DashboardVC : UITableViewDelegate, UITableViewDataSource {
         let cell = announcementTableView.dequeueReusableCell(withIdentifier: "announcement_cell", for: indexPath) as! AnnouncementTableCell
         return cell
     }
-    
     
 }

@@ -22,16 +22,16 @@
                         <rect key="frame" x="8" y="8" width="304" height="42"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="R2m-UO-Lsf">
-                                <rect key="frame" x="10" y="0.0" width="284" height="42"/>
+                                <rect key="frame" x="20" y="0.0" width="274" height="42"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="316-ho-bcv">
-                                        <rect key="frame" x="0.0" y="0.0" width="284" height="17"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="274" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tfl-3E-Fmn">
-                                        <rect key="frame" x="0.0" y="25" width="284" height="17"/>
+                                        <rect key="frame" x="0.0" y="25" width="274" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -43,7 +43,7 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="R2m-UO-Lsf" secondAttribute="bottom" id="HEF-5M-AFa"/>
                             <constraint firstItem="R2m-UO-Lsf" firstAttribute="top" secondItem="Am3-1Q-21e" secondAttribute="top" id="iJI-aT-5tH"/>
-                            <constraint firstItem="R2m-UO-Lsf" firstAttribute="leading" secondItem="Am3-1Q-21e" secondAttribute="leading" constant="10" id="x2r-jM-67y"/>
+                            <constraint firstItem="R2m-UO-Lsf" firstAttribute="leading" secondItem="Am3-1Q-21e" secondAttribute="leading" constant="20" id="x2r-jM-67y"/>
                             <constraint firstAttribute="trailing" secondItem="R2m-UO-Lsf" secondAttribute="trailing" constant="10" id="zK5-V6-fug"/>
                         </constraints>
                     </view>
