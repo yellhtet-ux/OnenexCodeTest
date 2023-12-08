@@ -10,6 +10,6 @@ import Foundation
 @objc protocol BaseView {
     func startLoading()
     func finishLoading()
-    @objc optional func showErrorView(title: String,message: String)
+    func showErrorView(title: String,message: String)
     @objc optional func showSessionTimeout(title: String,message: String)
 }

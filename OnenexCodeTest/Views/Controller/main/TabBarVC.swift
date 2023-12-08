@@ -12,13 +12,7 @@ class TabBarVC: UITabBarController, UITabBarControllerDelegate {
     // MARK: - Create Highlight Selection View
     let selectionHighlightView: UIView = {
         let view = UIView()
-        let maskLayer = CAShapeLayer()
-        let path = UIBezierPath(roundedRect: view.bounds, cornerRadius: 10)
-        maskLayer.path = path.cgPath
-
         view.backgroundColor = UIColor(hex: "#20507A")
-        view.layer.addSublayer(maskLayer)
-        view.layer.masksToBounds = true
         return view
     }()
     
@@ -27,6 +21,11 @@ class TabBarVC: UITabBarController, UITabBarControllerDelegate {
         UITabBar.appearance().tintColor = UIColor(hex: "#20507A")
         self.delegate = self
         
+        // Give corner radius to leading bottom and trailing bottom sides
+        let cornerRadius: CGFloat = 5
+        selectionHighlightView.layer.cornerRadius = cornerRadius
+        selectionHighlightView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        selectionHighlightView.layer.masksToBounds = true
         tabBar.addSubview(selectionHighlightView)
         
         let tabBarHeight = tabBar.frame.size.height

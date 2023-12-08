@@ -34,4 +34,20 @@ class APIManager {
             return Disposables.create()
         }
     }
+    
+    func postData<T: Mappable> (_ endPoint: EndPoint) -> Observable<T> {
+            return Observable<T>.create { observer -> Disposable in
+                self.mApiClient.requestPOSTURL(endPoint.url, params: endPoint.parameters as? [String : AnyObject] ?? [:], headers: endPoint.headers, success: { (response) in
+                    let responseJSON = JSON(response)
+                    if let resp: T = Mapper<T>().map(JSONString: responseJSON.rawString()!) {
+                        observer.onNext(resp)
+                    }else {
+                        observer.onError(APIError.parsingError)
+                    }
+                }) { (error) in
+                    observer.onError(error)
+                }
+                return Disposables.create()
+            }
+    }
 }

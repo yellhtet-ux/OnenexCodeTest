@@ -12,9 +12,9 @@ target 'OnenexCodeTest' do
  pod 'ObjectMapper'
  pod 'RxSwift', '~> 6.6.0'
  pod 'RxCocoa'
- pod 'Kingfisher'
  pod 'SwiftyJSON'
  pod 'JGProgressHUD'
+ pod 'SwiftKeychainWrapper'
  
  post_install do |installer|
      installer.generated_projects.each do |project|

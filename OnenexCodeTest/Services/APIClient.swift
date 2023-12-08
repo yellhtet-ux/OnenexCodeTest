@@ -32,4 +32,25 @@ class APIClient: NSObject {
                 }
             }
     }
+    
+    func requestPOSTURL(_ strURL : String, params: [String : AnyObject]?, headers: HTTPHeaders?, success:@escaping (Any) -> Void, failure:@escaping (Error) -> Void){
+        print("POST API Link : \(strURL)")
+        print("POST Parameter : \(params)")
+        print("POST Header : \(headers)")
+        AF.request(strURL, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers)
+            .validate(statusCode: 200 ..< 600)
+            .responseJSON { (response) -> Void in
+                print("POST API Link : \(strURL)")
+                print("POST API Header : \(response.response?.allHeaderFields)")
+                
+            switch response.result {
+                case .success:
+                    if let json = response.data {
+                        success(json)
+                    }
+                case let .failure(error):
+                    failure(error)
+            }
+        }
+    }
 }

@@ -8,9 +8,11 @@
 import Foundation
 
 struct Routes{
+    ///User
+    static let login = "api/auth/login"
     
     ///Dashboard
-    static let promotions = ""
-    static let announcements = ""
-    static let newsletters = ""
+    static let promotions = "api/articles"
+    static let announcements = "api/articles/categories"
+    static let newsletters = "api/articles/categories"
 }
