@@ -80,7 +80,7 @@ struct ArticlesIDNumber : Mappable {
     var created_at : String?
     var updated_at : String?
     var deleted_at : String?
-    var image : String? = "home_slide_img"
+    var image : String? = "home_slide_img" // Custom image to test
 
     init?(map: Map) {}
 
